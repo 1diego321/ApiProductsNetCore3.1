@@ -42,7 +42,7 @@ namespace ApiProducts.Models
         [Required]
         public int ApplicationUserStatusId { get; set; }
 
-        [ForeignKey("ApplicationUserStatusId")]
+        [ForeignKey(nameof(ApplicationUserStatusId))]
         public ApplicationUserStatus ApplicationUserStatus { get; set; }
     }
 }
