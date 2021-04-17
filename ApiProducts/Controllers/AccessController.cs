@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace ApiProducts.Controllers
 {
+    [ApiExplorerSettings(GroupName = "AccessController")]
     [Route("api/[controller]")]
     [ApiController]
     public class AccessController : ControllerBase

@@ -64,3 +64,8 @@ C:\Users\1dieg\Documents\.NET Platform\.NET CORE\ASP.NET API\ApiProducts\ApiProd
 C:\Users\1dieg\Documents\.NET Platform\.NET CORE\ASP.NET API\ApiProducts\ApiProducts\obj\Debug\netcoreapp3.1\ApiProducts.pdb
 C:\Users\1dieg\Documents\.NET Platform\.NET CORE\ASP.NET API\ApiProducts\ApiProducts\obj\Debug\netcoreapp3.1\ApiProducts.genruntimeconfig.cache
 C:\Users\1dieg\Documents\.NET Platform\.NET CORE\ASP.NET API\ApiProducts\ApiProducts\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\1dieg\Documents\.NET Platform\.NET CORE\ASP.NET API\ApiProducts\ApiProducts\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\1dieg\Documents\.NET Platform\.NET CORE\ASP.NET API\ApiProducts\ApiProducts\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\1dieg\Documents\.NET Platform\.NET CORE\ASP.NET API\ApiProducts\ApiProducts\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\1dieg\Documents\.NET Platform\.NET CORE\ASP.NET API\ApiProducts\ApiProducts\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\1dieg\Documents\.NET Platform\.NET CORE\ASP.NET API\ApiProducts\ApiProducts\obj\Debug\netcoreapp3.1\ApiProducts.MvcApplicationPartsAssemblyInfo.cs

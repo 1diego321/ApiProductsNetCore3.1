@@ -11,7 +11,8 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": false,
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:44385/SwaggerDocumentation",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

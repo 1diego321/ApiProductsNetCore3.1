@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace ApiProducts.Controllers
 {
+    [ApiExplorerSettings(GroupName = "ApplicationUserController")]
     [Route("api/User")]
     [ApiController]
     [Authorize]
