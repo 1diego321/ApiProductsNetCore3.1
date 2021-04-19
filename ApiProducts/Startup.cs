@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using ApiProducts.Controllers;
 
 namespace ApiProducts
 {
@@ -77,11 +78,11 @@ namespace ApiProducts
             //Swagger
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("ApplicationUserController", new OpenApiInfo //Param1 = GroupName
+                options.SwaggerDoc(nameof(ApplicationUserController), new OpenApiInfo //Param1 = GroupName
                 {
-                    Title = "ApplicationUserController", // Titulo
+                    Title = nameof(ApplicationUserController), // Titulo
                     Version = "1",
-                    Description = "Controlador de los usuarios de la aplicación",
+                    Description = "Controlador de los usuarios de la aplicación.",
                     Contact = new OpenApiContact
                     {
                         Email = "1diego321@gmail.com",
@@ -95,11 +96,65 @@ namespace ApiProducts
                     }
                 });
 
-                options.SwaggerDoc("AccessController", new OpenApiInfo()
+                options.SwaggerDoc(nameof(AccessController), new OpenApiInfo()
                 {
-                    Title = "AccessController",
+                    Title = nameof(AccessController),
                     Version = "1",
                     Description = "Controlador de acceso de usuarios (login)",
+                    Contact = new OpenApiContact
+                    {
+                        Email = "1diego321@gmail.com",
+                        Name = "Luis Diego Solis Camacho",
+                        Url = new Uri("https://github.com/1diego321")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "MIT License",
+                        Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                    }
+                });
+
+                options.SwaggerDoc(nameof(ProductController), new OpenApiInfo()
+                {
+                    Title = nameof(ProductController),
+                    Version = "1",
+                    Description = "Controlador de los productos",
+                    Contact = new OpenApiContact
+                    {
+                        Email = "1diego321@gmail.com",
+                        Name = "Luis Diego Solis Camacho",
+                        Url = new Uri("https://github.com/1diego321")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "MIT License",
+                        Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                    }
+                });
+
+                options.SwaggerDoc(nameof(CategoryController), new OpenApiInfo()
+                {
+                    Title = nameof(CategoryController),
+                    Version = "1",
+                    Description = "Controlador de las categorias",
+                    Contact = new OpenApiContact
+                    {
+                        Email = "1diego321@gmail.com",
+                        Name = "Luis Diego Solis Camacho",
+                        Url = new Uri("https://github.com/1diego321")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "MIT License",
+                        Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                    }
+                });
+
+                options.SwaggerDoc(nameof(SubCategoryController), new OpenApiInfo()
+                {
+                    Title = nameof(SubCategoryController),
+                    Version = "1",
+                    Description = "Controlador de las sub categorias",
                     Contact = new OpenApiContact
                     {
                         Email = "1diego321@gmail.com",
@@ -156,8 +211,11 @@ namespace ApiProducts
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/AccessController/swagger.json", "AccessController"); //Param2 = Definition Name
-                options.SwaggerEndpoint("/swagger/ApplicationUserController/swagger.json", "ApplicationUserController"); //Param2 = Definition Name
+                options.SwaggerEndpoint("/swagger/" + nameof(AccessController) + "/swagger.json", nameof(AccessController)); //Param2 = Definition Name
+                options.SwaggerEndpoint("/swagger/" + nameof(ApplicationUserController) + "/swagger.json", nameof(ApplicationUserController)); //Param2 = Definition Name
+                options.SwaggerEndpoint("/swagger/" + nameof(ProductController) + "/swagger.json", nameof(ProductController)); //Param2 = Definition Name
+                options.SwaggerEndpoint("/swagger/" + nameof(CategoryController) + "/swagger.json", nameof(CategoryController)); //Param2 = Definition Name
+                options.SwaggerEndpoint("/swagger/" + nameof(SubCategoryController) + "/swagger.json", nameof(SubCategoryController)); //Param2 = Definition Name
 
                 options.RoutePrefix = "SwaggerDocumentation";
             });
