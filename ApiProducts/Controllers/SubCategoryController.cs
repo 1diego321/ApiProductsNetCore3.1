@@ -1,6 +1,7 @@
 ﻿using ApiProducts.Common;
 using ApiProducts.Models.DTO.Application;
-using ApiProducts.Models.DTO.ApplicationUser.Request;
+using ApiProducts.Models.DTO.Category.Request;
+using ApiProducts.Models.DTO.SubCategory.Request;
 using ApiProducts.Services.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,27 +14,106 @@ using System.Threading.Tasks;
 
 namespace ApiProducts.Controllers
 {
-    [ApiExplorerSettings(GroupName = nameof(ApplicationUserController))]
-    [Route("api/User")]
+    [ApiExplorerSettings(GroupName = nameof(SubCategoryController))]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class ApplicationUserController : ControllerBase
+    public class SubCategoryController : ControllerBase
     {
-        #region DEPENDENCY DECLARATIONS
-        private readonly IApplicationUserService _service;
+        #region DEPENDENCIES DECLARATION
+        private readonly ISubCategoryService _service;
         #endregion
 
         #region CONSTRUCTOR
-        public ApplicationUserController(IApplicationUserService service)
+        public SubCategoryController(ISubCategoryService service)
         {
             _service = service;
         }
         #endregion
 
         #region ACTION METHODS
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(ApplicationUserRegisterRequest model)
+        public async Task<IActionResult> GetById([FromQuery(Name = "id")] int id)
+        {
+            Response oR = new Response();
+
+            try
+            {
+                var oSubCategory = await _service.GetById(id);
+
+                if (oSubCategory == null)
+                {
+                    oR.Status = StatusCodes.Status404NotFound;
+                    oR.Message = Messages.ResourceNotFound;
+
+                    return NotFound(oR);
+                }
+
+                oR.Status = StatusCodes.Status200OK;
+                oR.Data = oSubCategory;
+
+                return Ok(oR);
+            }
+            catch (Exception ex)
+            {
+                oR.Status = StatusCodes.Status500InternalServerError;
+                oR.Message = Messages.InternalServerError;
+
+                return StatusCode(StatusCodes.Status500InternalServerError, oR);
+            }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAll()
+        {
+            Response oR = new Response();
+
+            try
+            {
+                var lst = await _service.GetAll();
+
+                oR.Status = StatusCodes.Status200OK;
+                oR.Data = lst;
+
+                return Ok(oR);
+            }
+            catch (Exception ex)
+            {
+                oR.Status = StatusCodes.Status500InternalServerError;
+                oR.Message = Messages.InternalServerError;
+
+                return StatusCode(StatusCodes.Status500InternalServerError, oR);
+            }
+        }
+
+        [HttpGet("{categoryId:int}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAllByCategoryId(int categoryId)
+        {
+            Response oR = new Response();
+
+            try
+            {
+                var lst = await _service.GetAllByCategoryId(categoryId);
+
+                oR.Status = StatusCodes.Status200OK;
+                oR.Data = lst;
+
+                return Ok(oR);
+            }
+            catch (Exception ex)
+            {
+                oR.Status = StatusCodes.Status500InternalServerError;
+                oR.Message = Messages.InternalServerError;
+
+                return StatusCode(StatusCodes.Status500InternalServerError, oR);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCategory(SubCategoryAddRequest model)
         {
             Response oR = new Response();
 
@@ -48,121 +128,33 @@ namespace ApiProducts.Controllers
                     return BadRequest(oR);
                 }
 
-                if (await _service.ExistsUserName(model.UserName))
+                if (!await _service.ExistsName(model.CategoryId, model.Name))
                 {
+                    ModelState.AddModelError("Name", Messages.ResourceNameAlreadyExists);
+
                     oR.Status = StatusCodes.Status400BadRequest;
-                    oR.Message = "El nombre de usuario ya está en uso.";
+                    oR.Message = Messages.ValidationsFailed;
+                    oR.Data = GetModelErrors(ModelState);
 
                     return BadRequest(oR);
                 }
 
-                if (await _service.ExistsEmail(model.Email))
+                var oCategory = await _service.Add(model);
+
+                if (oCategory != null)
                 {
-                    oR.Status = StatusCodes.Status400BadRequest;
-                    oR.Message = "El correo electronico ya está en uso.";
+                    oR.Status = StatusCodes.Status201Created;
+                    oR.Data = oCategory;
 
-                    return BadRequest(oR);
+                    return CreatedAtAction(nameof(GetById), new { id = oCategory.Id }, oR);
                 }
-
-                if (!await _service.Register(model))
+                else
                 {
                     oR.Status = StatusCodes.Status500InternalServerError;
                     oR.Message = Messages.InternalServerError;
 
                     return StatusCode(StatusCodes.Status500InternalServerError, oR);
                 }
-
-                oR.Status = StatusCodes.Status200OK;               
-                
-                return Ok(oR);
-            }
-            catch (Exception ex)
-            {
-                oR.Status = StatusCodes.Status500InternalServerError;
-                oR.Message = Messages.InternalServerError;
-
-                return StatusCode(StatusCodes.Status500InternalServerError, oR);
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            Response oR = new Response();
-
-            try
-            {
-                oR.Data = await _service.GetAll();
-                oR.Status = StatusCodes.Status200OK;
-
-                return Ok(oR);
-            }
-            catch (Exception ex)
-            {
-                oR.Status = StatusCodes.Status500InternalServerError;
-                oR.Message = Messages.InternalServerError;
-
-                return StatusCode(StatusCodes.Status500InternalServerError, oR);
-            }
-        }
-
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            Response oR = new Response();
-
-            try
-            {
-                var oUser = await _service.GetById(id);
-
-                if(oUser == null)
-                {
-                    oR.Status = StatusCodes.Status404NotFound;
-                    oR.Message = Messages.ResourceNotFound;
-
-                    return NotFound(oR);
-                }
-
-                oR.Data = oUser;
-                oR.Status = StatusCodes.Status200OK;
-
-                return Ok(oR);
-            }
-            catch (Exception ex)
-            {
-                oR.Status = StatusCodes.Status500InternalServerError;
-                oR.Message = Messages.InternalServerError;
-
-                return StatusCode(StatusCodes.Status500InternalServerError, oR);
-            }
-        }
-
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DisableOrEnableUser(int id)
-        {
-            Response oR = new Response();
-
-            try
-            {
-                if(await _service.ExistsId(id))
-                {
-                    oR.Status = StatusCodes.Status404NotFound;
-                    oR.Message = Messages.ResourceNotFound;
-
-                    return NotFound(oR);
-                }
-
-                if(!await _service.DisableOrEnableUser(id))
-                {
-                    oR.Status = StatusCodes.Status500InternalServerError;
-                    oR.Message = Messages.InternalServerError;
-
-                    return StatusCode(StatusCodes.Status500InternalServerError, oR);
-                }
-
-                oR.Status = StatusCodes.Status204NoContent;
-
-                return NoContent();
             }
             catch (Exception ex)
             {

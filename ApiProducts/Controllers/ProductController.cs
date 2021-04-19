@@ -1,4 +1,5 @@
-﻿using ApiProducts.Models.DTO.Application;
+﻿using ApiProducts.Common;
+using ApiProducts.Models.DTO.Application;
 using ApiProducts.Models.DTO.Product.Request;
 using ApiProducts.Services.IService;
 using Microsoft.AspNetCore.Authorization;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ApiProducts.Controllers
 {
-    [ApiExplorerSettings(GroupName = "ProductController")]
+    [ApiExplorerSettings(GroupName = nameof(ProductController))]
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
@@ -39,14 +40,14 @@ namespace ApiProducts.Controllers
             try
             {
                 oR.Data = await _service.GetAll();
-                oR.Status = 200;
+                oR.Status = StatusCodes.Status200OK;
 
                 return Ok(oR);
             }
             catch (Exception ex)
             {
                 oR.Status = StatusCodes.Status500InternalServerError;
-                oR.Message = "Ha ocurrido un error interno en el servidor.";
+                oR.Message = Messages.InternalServerError;
 
                 return StatusCode(StatusCodes.Status500InternalServerError, oR);
             }
@@ -67,30 +68,30 @@ namespace ApiProducts.Controllers
                     if(oProduct.ProductStatusId == 1)
                     {
                         oR.Data = oProduct;
-                        oR.Status = 200;
+                        oR.Status = StatusCodes.Status200OK;
 
                         return Ok(oR);
                     }
                     else
                     {
                         oR.Status = StatusCodes.Status400BadRequest;
-                        oR.Message = "El recurso solicitado está desactivado.";
+                        oR.Message = Messages.ResourceDisabled;
 
                         return BadRequest(oR);
                     }
                 }
                 else
                 {
-                    oR.Status = StatusCodes.Status400BadRequest;
-                    oR.Message = "El recurso solicitado no existe.";
+                    oR.Status = StatusCodes.Status404NotFound;
+                    oR.Message = Messages.ResourceNotFound;
 
-                    return BadRequest(oR);
+                    return NotFound(oR);
                 }
             }
             catch (Exception ex)
             {
                 oR.Status = StatusCodes.Status500InternalServerError;
-                oR.Message = "Ha ocurrido un error interno en el servidor.";
+                oR.Message = Messages.InternalServerError;
 
                 return StatusCode(StatusCodes.Status500InternalServerError, oR);
             }
@@ -105,8 +106,8 @@ namespace ApiProducts.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    oR.Status = 400;
-                    oR.Message = "Se han incumplido una o más validaciones.";
+                    oR.Status = StatusCodes.Status400BadRequest;
+                    oR.Message = Messages.ValidationsFailed;
                     oR.Data = GetModelErrors(ModelState);
 
                     return BadRequest(oR);
@@ -124,7 +125,7 @@ namespace ApiProducts.Controllers
                 else
                 {
                     oR.Status = StatusCodes.Status500InternalServerError;
-                    oR.Message = "Ha ocurrido un error interno en el servidor.";
+                    oR.Message = Messages.InternalServerError;
 
                     return StatusCode(StatusCodes.Status500InternalServerError, oR);
                 }
@@ -132,7 +133,7 @@ namespace ApiProducts.Controllers
             catch (Exception ex)
             {
                 oR.Status = StatusCodes.Status500InternalServerError;
-                oR.Message = "Ha ocurrido un error interno en el servidor.";
+                oR.Message = Messages.InternalServerError;
 
                 return StatusCode(StatusCodes.Status500InternalServerError, oR);
             }
@@ -147,8 +148,8 @@ namespace ApiProducts.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    oR.Status = 400;
-                    oR.Message = "Se han incumplido una o más validaciones.";
+                    oR.Status = StatusCodes.Status400BadRequest;
+                    oR.Message = Messages.ValidationsFailed;
                     oR.Data = GetModelErrors(ModelState);
 
                     return BadRequest(oR);
@@ -156,34 +157,32 @@ namespace ApiProducts.Controllers
 
                 if(!await _service.ExistsId(model.Id))
                 {
-                    oR.Message = "El recurso solicitado no existe.";
-                    oR.Status = StatusCodes.Status400BadRequest;
+                    oR.Message = Messages.ResourceNotFound;
+                    oR.Status = StatusCodes.Status404NotFound;
 
-                    return BadRequest(oR);
+                    return NotFound(oR);
                 }
 
                 if(!await _service.Update(model))
                 {
                     oR.Status = StatusCodes.Status500InternalServerError;
-                    oR.Message = "Ha ocurrido un error interno en el servidor.";
+                    oR.Message = Messages.InternalServerError; 
 
                     return StatusCode(StatusCodes.Status500InternalServerError, oR);
                 }
-
-                oR.Status = 201;
 
                 return NoContent();
             }
             catch (Exception ex)
             {
                 oR.Status = StatusCodes.Status500InternalServerError;
-                oR.Message = "Ha ocurrido un error interno en el servidor.";
+                oR.Message = Messages.InternalServerError;
 
                 return StatusCode(StatusCodes.Status500InternalServerError, oR);
             }
         }
 
-        [HttpPatch("{id:int}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DisableOrEnable(int id)
         {
             Response oR = new Response();
@@ -192,28 +191,26 @@ namespace ApiProducts.Controllers
             {
                 if(!await _service.ExistsId(id))
                 {
-                    oR.Status = StatusCodes.Status400BadRequest;
-                    oR.Message = "El recurso solicitado no existe.";
+                    oR.Status = StatusCodes.Status404NotFound;
+                    oR.Message = Messages.ResourceNotFound;
 
-                    return BadRequest(oR);
+                    return NotFound(oR);
                 }
 
                 if(!await _service.DisableOrEnable(id))
                 {
                     oR.Status = StatusCodes.Status500InternalServerError;
-                    oR.Message = "Ha ocurrido un error interno en el servidor.";
+                    oR.Message = Messages.InternalServerError;
 
                     return StatusCode(StatusCodes.Status500InternalServerError, oR);
                 }
-
-                oR.Status = 201;
 
                 return NoContent();
             }
             catch (Exception ex)
             {
                 oR.Status = StatusCodes.Status500InternalServerError;
-                oR.Message = "Ha ocurrido un error interno en el servidor.";
+                oR.Message = Messages.InternalServerError;
 
                 return StatusCode(StatusCodes.Status500InternalServerError, oR);
             }

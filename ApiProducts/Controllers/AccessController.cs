@@ -1,4 +1,5 @@
-﻿using ApiProducts.Models.DTO.Application;
+﻿using ApiProducts.Common;
+using ApiProducts.Models.DTO.Application;
 using ApiProducts.Models.DTO.ApplicationUser;
 using ApiProducts.Models.DTO.ApplicationUser.Request;
 using ApiProducts.Services.IService;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace ApiProducts.Controllers
 {
-    [ApiExplorerSettings(GroupName = "AccessController")]
+    [ApiExplorerSettings(GroupName = nameof(AccessController))]
     [Route("api/[controller]")]
     [ApiController]
     public class AccessController : ControllerBase
@@ -48,7 +49,7 @@ namespace ApiProducts.Controllers
                 if(oUser == null)
                 {
                     oR.Status = StatusCodes.Status400BadRequest;
-                    oR.Message = "Nombre de usuario y/o contraseña incorrectos.";
+                    oR.Message = Messages.InvalidUserNamePassword;
 
                     return BadRequest(oR);
                 }
@@ -56,7 +57,7 @@ namespace ApiProducts.Controllers
                 if (oUser.ApplicationUserStatusId == 2)
                 {
                     oR.Status = StatusCodes.Status400BadRequest;
-                    oR.Message = "La cuenta de usuario está desactivada.";
+                    oR.Message = Messages.AccountDisabled;
 
                     return BadRequest(oR);
                 }
@@ -71,7 +72,7 @@ namespace ApiProducts.Controllers
             catch (Exception ex)
             {
                 oR.Status = StatusCodes.Status500InternalServerError;
-                oR.Message = "Ha ocurrido un error interno en el servidor.";
+                oR.Message = Messages.InternalServerError;
 
                 return StatusCode(StatusCodes.Status500InternalServerError, oR);
             }
