@@ -46,10 +46,14 @@ namespace ApiProducts
             //Repositories
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
 
             //Services
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ISubCategoryService, SubCategoryService>();
 
             //AutoMapper
             services.AddAutoMapper(typeof(ApplicationMapper));
