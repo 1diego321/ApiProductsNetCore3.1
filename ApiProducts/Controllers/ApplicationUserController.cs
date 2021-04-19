@@ -85,6 +85,7 @@ namespace ApiProducts.Controllers
         }
 
         [HttpGet]
+
         public async Task<IActionResult> GetAll()
         {
             Response oR = new Response();
