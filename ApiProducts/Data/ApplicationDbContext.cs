@@ -17,5 +17,9 @@ namespace ApiProducts.Data
 
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<ApplicationUserStatus> ApplicationUserStatus { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<ProductStatus> ProductStatus { get; set; }
+        public DbSet<SubCategory> SubCategory { get; set; }
+        public DbSet<Category> Category { get; set; }
     }
 }

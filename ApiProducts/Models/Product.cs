@@ -20,6 +20,8 @@ namespace ApiProducts.Models
         [StringLength(50)]
         public string Code { get; set; }
 
+        public string ImageRoute { get; set; }
+
         [Required]
         public string Description { get; set; }
 
@@ -29,10 +31,17 @@ namespace ApiProducts.Models
         [Required]
         public decimal Stock { get; set; }
 
+        [Required]
         public DateTime CreatedDate { get; set; }
 
         [Required]
         public int SubCategoryId { get; set; }
+
+        [Required]
+        public int ProductStatusId { get; set; }
+
+        [ForeignKey(nameof(ProductStatusId))]
+        public ProductStatus ProductStatus { get; set; }
 
         [ForeignKey(nameof(SubCategoryId))]
         public SubCategory SubCategory { get; set; }
