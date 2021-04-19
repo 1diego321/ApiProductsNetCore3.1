@@ -55,9 +55,7 @@ namespace ApiProducts.Services
 
         public async Task<List<ApplicationUserDTO>> GetAll()
         {
-            var lst = await _repository.GetAll();
-
-            return lst.Select(u => _mapper.Map<ApplicationUserDTO>(u)).ToList();
+            return (await _repository.GetAll()).Select(u => _mapper.Map<ApplicationUserDTO>(u)).ToList();
         }
 
         public async Task<ApplicationUserDTO> GetById(int id)
