@@ -24,6 +24,8 @@ namespace ApiProducts
 {
     public class Startup
     {
+        private const string _DEFAULTCONNECTION = "DefaultConnection";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -39,13 +41,15 @@ namespace ApiProducts
             services.AddControllers();
 
             //DbContext
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(_DEFAULTCONNECTION)));
 
             //Repositories
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             //Services
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
+            services.AddScoped<IProductService, ProductService>();
 
             //AutoMapper
             services.AddAutoMapper(typeof(ApplicationMapper));
