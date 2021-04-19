@@ -12,7 +12,8 @@
 
 • Patrón Repositorio </br>
 • Inyección de Dependencias </br>
-• Los controladores consumen la capa de servicio que sirve de logica de negocio (si es que hubo) la cual consume los repositorios. </br>
+• Los controladores consumen la capa de servicio que sirve de logica de negocio (si es que se necesitó) la cual consume los repositorios. </br>
+• Api REST </br>
 
 Trantando de seguir las mejores practicas segun mi conocimiento actual de momento.
 
