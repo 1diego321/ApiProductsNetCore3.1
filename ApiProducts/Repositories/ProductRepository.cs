@@ -32,14 +32,14 @@ namespace ApiProducts.Repositories
 
         public async Task<bool> Update(Product model)
         {
-            _context.Entry(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(model).State = EntityState.Modified;
 
             return await Save();
         }
 
         public async Task<bool> DisableOrEnable(Product model)
         {
-            _context.Entry(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(model).State = EntityState.Modified;
 
             return await Save();
         }
@@ -57,6 +57,11 @@ namespace ApiProducts.Repositories
         public async Task<bool> ExistsId(int id)
         {
             return await _context.Product.AnyAsync(p => p.Id == id);
+        }
+
+        public async Task<bool> ExistsCode(string code)
+        {
+            return await _context.Product.AnyAsync(p => p.Code.Trim().ToLower() == code.Trim().ToLower());
         }
         #endregion
 

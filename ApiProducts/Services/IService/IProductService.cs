@@ -15,5 +15,6 @@ namespace ApiProducts.Services.IService
         Task<List<ProductDTO>> GetAll();
         Task<ProductDTO> GetById(int id);
         Task<bool> ExistsId(int id);
+        Task<bool> ExistsCode(string code);
     }
 }

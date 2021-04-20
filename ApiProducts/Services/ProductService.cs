@@ -32,7 +32,7 @@ namespace ApiProducts.Services
         {
             var oProduct = _mapper.Map<Product>(model);
 
-            if (model.Image.Length > 0)
+            if (model.Image != null)
             {
                 string mainRoute = @"C:\ApiProducts\Files\Images";
                 string imgName = Guid.NewGuid().ToString() + Path.GetExtension(model.Image.FileName);
@@ -48,6 +48,8 @@ namespace ApiProducts.Services
                 }
             }
 
+            oProduct.ProductStatusId = 1;
+
             var ok = await _repository.Add(oProduct);
 
             if (ok)
@@ -60,7 +62,14 @@ namespace ApiProducts.Services
 
         public async Task<bool> Update(ProductUpdateRequest model)
         {
-            var oProduct = _mapper.Map<Product>(model);
+            var oProduct = await _repository.GetById(model.Id);
+
+            oProduct.Name = model.Name;
+            oProduct.Code = model.Code;
+            oProduct.Description = model.Description;
+            oProduct.Price = model.Price;
+            oProduct.Stock = model.Stock;
+            oProduct.SubCategoryId = model.SubCategoryId;
 
             return await _repository.Update(oProduct);
         }
@@ -89,6 +98,11 @@ namespace ApiProducts.Services
         public async Task<bool> ExistsId(int id)
         {
             return await _repository.ExistsId(id);
+        }
+
+        public async Task<bool> ExistsCode(string code)
+        {
+            return await _repository.ExistsCode(code);
         }
         #endregion
     }

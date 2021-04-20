@@ -14,5 +14,6 @@ namespace ApiProducts.Repositories.IRepository
         Task<List<Product>> GetAll();
         Task<Product> GetById(int id);
         Task<bool> ExistsId(int id);
+        Task<bool> ExistsCode(string code);
     }
 }

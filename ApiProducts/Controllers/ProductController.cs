@@ -20,13 +20,15 @@ namespace ApiProducts.Controllers
     public class ProductController : ControllerBase
     {
         #region DEPENDENCIES DECLARATIONS
-        private readonly IProductService _service;
+        private readonly IProductService _productService;
+        private readonly ISubCategoryService _subCategoryService;
         #endregion
 
         #region CONSTRUCTOR
-        public ProductController(IProductService service)
+        public ProductController(IProductService productService, ISubCategoryService subCategoryService)
         {
-            _service = service;
+            _productService = productService;
+            _subCategoryService = subCategoryService;
         }
         #endregion
 
@@ -39,7 +41,7 @@ namespace ApiProducts.Controllers
 
             try
             {
-                oR.Data = await _service.GetAll();
+                oR.Data = await _productService.GetAll();
                 oR.Status = StatusCodes.Status200OK;
 
                 return Ok(oR);
@@ -58,14 +60,14 @@ namespace ApiProducts.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             Response oR = new Response();
-            
+
             try
             {
-                var oProduct = await _service.GetById(id);
+                var oProduct = await _productService.GetById(id);
 
-                if(oProduct != null)
+                if (oProduct != null)
                 {
-                    if(oProduct.ProductStatusId == 1)
+                    if (oProduct.ProductStatusId == 1)
                     {
                         oR.Data = oProduct;
                         oR.Status = StatusCodes.Status200OK;
@@ -98,7 +100,7 @@ namespace ApiProducts.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(ProductAddRequest model)
+        public async Task<IActionResult> Add([FromForm]ProductAddRequest model)
         {
             Response oR = new Response();
 
@@ -113,7 +115,29 @@ namespace ApiProducts.Controllers
                     return BadRequest(oR);
                 }
 
-                var oProduct = await _service.Add(model);
+                if(await _productService.ExistsCode(model.Code))
+                {
+                    ModelState.AddModelError("Code", Messages.ResourceCodeAlreadyExists);
+
+                    oR.Status = StatusCodes.Status400BadRequest;
+                    oR.Message = Messages.ValidationsFailed;
+                    oR.Data = GetModelErrors(ModelState);
+
+                    return BadRequest(oR);
+                }
+
+                if(!await _subCategoryService.ExistsId(model.SubCategoryId))
+                {
+                    ModelState.AddModelError("Code", Messages.SubCategoryIdDontExists);
+
+                    oR.Status = StatusCodes.Status400BadRequest;
+                    oR.Message = Messages.ValidationsFailed;
+                    oR.Data = GetModelErrors(ModelState);
+
+                    return BadRequest(oR);
+                }
+
+                var oProduct = await _productService.Add(model);
 
                 if (oProduct != null)
                 {
@@ -155,7 +179,7 @@ namespace ApiProducts.Controllers
                     return BadRequest(oR);
                 }
 
-                if(!await _service.ExistsId(model.Id))
+                if (!await _productService.ExistsId(model.Id))
                 {
                     oR.Message = Messages.ResourceNotFound;
                     oR.Status = StatusCodes.Status404NotFound;
@@ -163,10 +187,21 @@ namespace ApiProducts.Controllers
                     return NotFound(oR);
                 }
 
-                if(!await _service.Update(model))
+                if (!await _subCategoryService.ExistsId(model.SubCategoryId))
+                {
+                    ModelState.AddModelError("Code", Messages.SubCategoryIdDontExists);
+
+                    oR.Status = StatusCodes.Status400BadRequest;
+                    oR.Message = Messages.ValidationsFailed;
+                    oR.Data = GetModelErrors(ModelState);
+
+                    return BadRequest(oR);
+                }
+
+                if (!await _productService.Update(model))
                 {
                     oR.Status = StatusCodes.Status500InternalServerError;
-                    oR.Message = Messages.InternalServerError; 
+                    oR.Message = Messages.InternalServerError;
 
                     return StatusCode(StatusCodes.Status500InternalServerError, oR);
                 }
@@ -189,7 +224,7 @@ namespace ApiProducts.Controllers
 
             try
             {
-                if(!await _service.ExistsId(id))
+                if (!await _productService.ExistsId(id))
                 {
                     oR.Status = StatusCodes.Status404NotFound;
                     oR.Message = Messages.ResourceNotFound;
@@ -197,7 +232,7 @@ namespace ApiProducts.Controllers
                     return NotFound(oR);
                 }
 
-                if(!await _service.DisableOrEnable(id))
+                if (!await _productService.DisableOrEnable(id))
                 {
                     oR.Status = StatusCodes.Status500InternalServerError;
                     oR.Message = Messages.InternalServerError;
