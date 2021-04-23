@@ -163,8 +163,8 @@ namespace ApiProducts.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(ProductUpdateRequest model)
+        [HttpPut("id:int")]
+        public async Task<IActionResult> Update(int id, ProductUpdateRequest model)
         {
             Response oR = new Response();
 
@@ -177,6 +177,14 @@ namespace ApiProducts.Controllers
                     oR.Data = GetModelErrors(ModelState);
 
                     return BadRequest(oR);
+                }
+
+                if(id != model.Id)
+                {
+                    oR.Message = Messages.ResourceNotFound;
+                    oR.Status = StatusCodes.Status404NotFound;
+
+                    return NotFound(oR);
                 }
 
                 if (!await _productService.ExistsId(model.Id))

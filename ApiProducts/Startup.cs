@@ -57,7 +57,7 @@ namespace ApiProducts
             services.AddScoped<ISubCategoryService, SubCategoryService>();
 
             //AutoMapper
-            services.AddAutoMapper(typeof(ApplicationMapper));
+            services.AddAutoMapper(typeof(Extensions.ApplicationMapper));
 
             //JWT
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -203,22 +203,24 @@ namespace ApiProducts
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/" + nameof(AccessController) + "/swagger.json", nameof(AccessController)); //Param2 = Definition Name
+                    options.SwaggerEndpoint("/swagger/" + nameof(ApplicationUserController) + "/swagger.json", nameof(ApplicationUserController)); //Param2 = Definition Name
+                    options.SwaggerEndpoint("/swagger/" + nameof(ProductController) + "/swagger.json", nameof(ProductController)); //Param2 = Definition Name
+                    options.SwaggerEndpoint("/swagger/" + nameof(CategoryController) + "/swagger.json", nameof(CategoryController)); //Param2 = Definition Name
+                    options.SwaggerEndpoint("/swagger/" + nameof(SubCategoryController) + "/swagger.json", nameof(SubCategoryController)); //Param2 = Definition Name
+
+                    options.RoutePrefix = "SwaggerDocumentation";
+                });
             }
 
             app.UseHttpsRedirection();
 
             //Swagger
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/" + nameof(AccessController) + "/swagger.json", nameof(AccessController)); //Param2 = Definition Name
-                options.SwaggerEndpoint("/swagger/" + nameof(ApplicationUserController) + "/swagger.json", nameof(ApplicationUserController)); //Param2 = Definition Name
-                options.SwaggerEndpoint("/swagger/" + nameof(ProductController) + "/swagger.json", nameof(ProductController)); //Param2 = Definition Name
-                options.SwaggerEndpoint("/swagger/" + nameof(CategoryController) + "/swagger.json", nameof(CategoryController)); //Param2 = Definition Name
-                options.SwaggerEndpoint("/swagger/" + nameof(SubCategoryController) + "/swagger.json", nameof(SubCategoryController)); //Param2 = Definition Name
-
-                options.RoutePrefix = "SwaggerDocumentation";
-            });
+            
 
             app.UseRouting();
 
