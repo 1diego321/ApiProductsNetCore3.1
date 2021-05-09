@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace ApiProducts.Models.DTO.Application
 {
+    /// <summary>
+    /// Default endpoints response model
+    /// </summary>
     public class Response
     {
         public int Status { get; set; }

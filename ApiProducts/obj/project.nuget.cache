@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Z1TggXj9LShWTRwp6mDupM6z4vLPyLg03WWxsVzXnr++UB+14PfcaXGwA1I/XYt9s4w4RyzAfBJn9jbaQAcI3g==",
+  "dgSpecHash": "qVJEBh29LS38Paud88jMYJGmVTZ7zNCP6LmLHTGghy8on9rxOTsAG3Lli0CJ6yivC9twbXQ9g7c93xQWkOkMIQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\1dieg\\Documents\\.NET Platform\\.NET CORE\\ASP.NET API\\ApiProducts\\ApiProducts\\ApiProducts.csproj",
+  "projectFilePath": "C:\\Users\\1dieg\\Documents\\.NET\\.NET CORE\\ASP.NET API\\ApiProducts\\ApiProducts\\ApiProducts.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\1dieg\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\1dieg\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

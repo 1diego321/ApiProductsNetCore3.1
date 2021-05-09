@@ -20,6 +20,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using ApiProducts.Controllers;
+using System.Reflection;
+using System.IO;
 
 namespace ApiProducts
 {
@@ -168,6 +170,12 @@ namespace ApiProducts
                     }
                 });
 
+                //XML Comments
+                var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var finalRoute = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+
+                options.IncludeXmlComments(finalRoute);
+
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "Autenticacion JWT (Bearer)",
@@ -218,9 +226,6 @@ namespace ApiProducts
             }
 
             app.UseHttpsRedirection();
-
-            //Swagger
-            
 
             app.UseRouting();
 

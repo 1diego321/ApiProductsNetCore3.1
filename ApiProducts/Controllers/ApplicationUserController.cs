@@ -31,8 +31,15 @@ namespace ApiProducts.Controllers
         #endregion
 
         #region ACTION METHODS
+        /// <summary>
+        /// User register 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
         public async Task<IActionResult> Register(ApplicationUserRegisterRequest model)
         {
             Response oR = new Response();
@@ -85,7 +92,12 @@ namespace ApiProducts.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets a List of all users
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
         public async Task<IActionResult> GetAll()
         {
             Response oR = new Response();
@@ -106,6 +118,13 @@ namespace ApiProducts.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets a user by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response))]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -137,6 +156,13 @@ namespace ApiProducts.Controllers
             }
         }
 
+        /// <summary>
+        /// Disables or enables user accounts
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response))]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DisableOrEnableUser(int id)
         {

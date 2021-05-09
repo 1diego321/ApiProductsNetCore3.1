@@ -37,7 +37,14 @@ namespace ApiProducts.Controllers
         #endregion
 
         #region ACTION METHODS
+        /// <summary>
+        /// Used for user authentication request
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
         public async Task<IActionResult> Authenticate(ApplicationUserAuthRequest model)
         {
             Response oR = new Response();
@@ -64,7 +71,7 @@ namespace ApiProducts.Controllers
 
                 SetToken(oUser);
 
-                oR.Status = 200;
+                oR.Status = StatusCodes.Status200OK;
                 oR.Data = oUser;
 
                 return Ok(oR);
@@ -80,6 +87,10 @@ namespace ApiProducts.Controllers
         #endregion
 
         #region UTILITY METHODS
+        /// <summary>
+        /// Sets JWT Token
+        /// </summary>
+        /// <param name="model"></param>
         private void SetToken(ApplicationUserLoginDTO model)
         {
             var claims = new[]
@@ -105,6 +116,11 @@ namespace ApiProducts.Controllers
             model.Token = tokenHandler.WriteToken(token);
         }
 
+        /// <summary>
+        /// Returns a List<string> of model errors
+        /// </summary>
+        /// <param name="modelState"></param>
+        /// <returns></returns>
         private List<string> GetModelErrors(ModelStateDictionary modelState)
         {
             return modelState.Values.SelectMany(e => e.Errors.Select(e => e.ErrorMessage)).ToList();

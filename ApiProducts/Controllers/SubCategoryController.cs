@@ -32,8 +32,15 @@ namespace ApiProducts.Controllers
         #endregion
 
         #region ACTION METHODS
+        /// <summary>
+        /// Gets a category by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response))]
         public async Task<IActionResult> GetById([FromQuery(Name = "id")] int id)
         {
             Response oR = new Response();
@@ -64,8 +71,13 @@ namespace ApiProducts.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all subcategories
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
         public async Task<IActionResult> GetAll()
         {
             Response oR = new Response();
@@ -88,8 +100,14 @@ namespace ApiProducts.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets a List of subcategories by category Id
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
         [HttpGet("{categoryId:int}")]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
         public async Task<IActionResult> GetAllByCategoryId(int categoryId)
         {
             Response oR = new Response();
@@ -112,7 +130,14 @@ namespace ApiProducts.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a new subcategory
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
         public async Task<IActionResult> AddCategory(SubCategoryAddRequest model)
         {
             Response oR = new Response();

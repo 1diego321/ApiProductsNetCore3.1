@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ApiProducts</name>
+    </assembly>
+    <members>
+        <member name="T:ApiProducts.Common.Messages">
+            <summary>
+            Common response messages 
+            </summary>
+        </member>
+        <member name="M:ApiProducts.Controllers.AccessController.Authenticate(ApiProducts.Models.DTO.ApplicationUser.Request.ApplicationUserAuthRequest)">
+            <summary>
+            Used for user authentication request
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.AccessController.SetToken(ApiProducts.Models.DTO.ApplicationUser.ApplicationUserLoginDTO)">
+            <summary>
+            Sets JWT Token
+            </summary>
+            <param name="model"></param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ApiProducts.Controllers.AccessController.GetModelErrors(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)" -->
+        <member name="M:ApiProducts.Controllers.ApplicationUserController.Register(ApiProducts.Models.DTO.ApplicationUser.Request.ApplicationUserRegisterRequest)">
+            <summary>
+            User register 
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.ApplicationUserController.GetAll">
+            <summary>
+            Gets a List of all users
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.ApplicationUserController.GetById(System.Int32)">
+            <summary>
+            Gets a user by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.ApplicationUserController.DisableOrEnableUser(System.Int32)">
+            <summary>
+            Disables or enables user accounts
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.CategoryController.GetById(System.Int32)">
+            <summary>
+            Gets a category by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.CategoryController.GetAll">
+            <summary>
+            Gets a list of all categories
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.CategoryController.Add(ApiProducts.Models.DTO.Category.Request.CategoryAddRequest)">
+            <summary>
+            Adds a new category
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.ProductController.GetAll">
+            <summary>
+            Gets all Products
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.ProductController.GetById(System.Int32)">
+            <summary>
+            Gets a product by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.ProductController.Add(ApiProducts.Models.DTO.Product.Request.ProductAddRequest)">
+            <summary>
+            Creates a new Product
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.ProductController.Update(System.Int32,ApiProducts.Models.DTO.Product.Request.ProductUpdateRequest)">
+            <summary>
+            Updates a existing product
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.ProductController.DisableOrEnable(System.Int32)">
+            <summary>
+            Enables or disables a product
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.SubCategoryController.GetById(System.Int32)">
+            <summary>
+            Gets a category by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.SubCategoryController.GetAll">
+            <summary>
+            Gets all subcategories
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.SubCategoryController.GetAllByCategoryId(System.Int32)">
+            <summary>
+            Gets a List of subcategories by category Id
+            </summary>
+            <param name="categoryId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiProducts.Controllers.SubCategoryController.AddCategory(ApiProducts.Models.DTO.SubCategory.Request.SubCategoryAddRequest)">
+            <summary>
+            Creates a new subcategory
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ApiProducts.Models.DTO.Application.Response">
+            <summary>
+            Default endpoint response model
+            </summary>
+        </member>
+    </members>
+</doc>

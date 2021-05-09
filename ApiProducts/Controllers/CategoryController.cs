@@ -31,8 +31,15 @@ namespace ApiProducts.Controllers
         #endregion
 
         #region ACTION METHODS
+        /// <summary>
+        /// Gets a category by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response))]
         public async Task<IActionResult> GetById([FromQuery(Name = "id")] int id)
         {
             Response oR = new Response();
@@ -63,8 +70,13 @@ namespace ApiProducts.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets a list of all categories
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
         public async Task<IActionResult> GetAll()
         {
             Response oR = new Response();
@@ -87,7 +99,14 @@ namespace ApiProducts.Controllers
             }
         }
 
+        /// <summary>
+        /// Adds a new category
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
         public async Task<IActionResult> Add(CategoryAddRequest model)
         {
             Response oR = new Response();

@@ -33,8 +33,13 @@ namespace ApiProducts.Controllers
         #endregion
 
         #region ACTION METHODS
+        /// <summary>
+        /// Gets all Products
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
         public async Task<IActionResult> GetAll()
         {
             Response oR = new Response();
@@ -55,8 +60,16 @@ namespace ApiProducts.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets a product by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id:int}", Name = nameof(GetById))]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response))]
         public async Task<IActionResult> GetById(int id)
         {
             Response oR = new Response();
@@ -99,7 +112,14 @@ namespace ApiProducts.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a new Product
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
         public async Task<IActionResult> Add([FromForm]ProductAddRequest model)
         {
             Response oR = new Response();
@@ -163,7 +183,16 @@ namespace ApiProducts.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates a existing product
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut("id:int")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response))]
         public async Task<IActionResult> Update(int id, ProductUpdateRequest model)
         {
             Response oR = new Response();
@@ -225,7 +254,14 @@ namespace ApiProducts.Controllers
             }
         }
 
+        /// <summary>
+        /// Enables or disables a product
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
         public async Task<IActionResult> DisableOrEnable(int id)
         {
             Response oR = new Response();

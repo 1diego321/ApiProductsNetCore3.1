@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace ApiProducts.Common
 {
+    /// <summary>
+    /// Common response messages 
+    /// </summary>
     public static class Messages
     {
         public const string InternalServerError = "Ha ocurrido un error interno en el servidor.";

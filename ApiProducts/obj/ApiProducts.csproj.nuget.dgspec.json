@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\1dieg\\Documents\\.NET Platform\\.NET CORE\\ASP.NET API\\ApiProducts\\ApiProducts\\ApiProducts.csproj": {}
+    "C:\\Users\\1dieg\\Documents\\.NET\\.NET CORE\\ASP.NET API\\ApiProducts\\ApiProducts\\ApiProducts.csproj": {}
   },
   "projects": {
-    "C:\\Users\\1dieg\\Documents\\.NET Platform\\.NET CORE\\ASP.NET API\\ApiProducts\\ApiProducts\\ApiProducts.csproj": {
+    "C:\\Users\\1dieg\\Documents\\.NET\\.NET CORE\\ASP.NET API\\ApiProducts\\ApiProducts\\ApiProducts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1dieg\\Documents\\.NET Platform\\.NET CORE\\ASP.NET API\\ApiProducts\\ApiProducts\\ApiProducts.csproj",
+        "projectUniqueName": "C:\\Users\\1dieg\\Documents\\.NET\\.NET CORE\\ASP.NET API\\ApiProducts\\ApiProducts\\ApiProducts.csproj",
         "projectName": "ApiProducts",
-        "projectPath": "C:\\Users\\1dieg\\Documents\\.NET Platform\\.NET CORE\\ASP.NET API\\ApiProducts\\ApiProducts\\ApiProducts.csproj",
+        "projectPath": "C:\\Users\\1dieg\\Documents\\.NET\\.NET CORE\\ASP.NET API\\ApiProducts\\ApiProducts\\ApiProducts.csproj",
         "packagesPath": "C:\\Users\\1dieg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1dieg\\Documents\\.NET Platform\\.NET CORE\\ASP.NET API\\ApiProducts\\ApiProducts\\obj\\",
+        "outputPath": "C:\\Users\\1dieg\\Documents\\.NET\\.NET CORE\\ASP.NET API\\ApiProducts\\ApiProducts\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -89,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
