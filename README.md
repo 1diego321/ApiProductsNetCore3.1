@@ -7,6 +7,7 @@
 • Sql Server </br>
 • Entity FrameworkCore Code First </br>
 • Documentacion Swagger </br>
+• Comentarios XML </br>
 
 <h3>Conceptos | Patrones de diseño:</h3>
 
