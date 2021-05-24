@@ -15,6 +15,8 @@
 • Patrón Repositorio </br>
 • Inyección de Dependencias </br>
 • Separacion de los diferentes componentes (segun sus responsabilidades) <br>
-• Controladores consumen los servicios, dichos servicios sirven de logica de negocio, estos mismos consumen los repositorios que se encargan del acceso a datos. <br>
+• Controladores consumen los servicios, dichos servicios sirven de logica de negocio, estos mismos consumen los repositorios que se encargan del acceso a datos. <br><br>
+
+Creo que lo dejé sin terminar
 
 
